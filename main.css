@@ -173,3 +173,80 @@ button {
         width: min(100% - 1.5rem, var(--content-width));
     }
 }
+
+/* ========================================
+    9. TRANSITIONS ENTRE LES FENÊTRES
+======================================== */
+
+@media (prefers-reduced-motion: no-preference) {
+
+    /* Transition globale de l'interface */
+
+    ::view-transition-group(root) {
+        animation-duration: 500ms;
+        animation-timing-function: ease-in-out;
+    }
+
+    /* Disparition de l'ancienne interface */
+
+    ::view-transition-old(root) {
+        animation: interfaceFadeOut 500ms ease-in-out both;
+    }
+
+    /* Apparition de la nouvelle interface */
+
+    ::view-transition-new(root) {
+        animation: interfaceFadeIn 500ms ease-in-out both;
+    }
+
+    /* Transformation de la carte en fenêtre détaillée */
+
+    ::view-transition-group(project-transition) {
+        animation-duration: 750ms;
+        animation-timing-function:
+            cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    ::view-transition-image-pair(project-transition) {
+        isolation: isolate;
+    }
+
+    ::view-transition-old(project-transition),
+    ::view-transition-new(project-transition) {
+        height: 100%;
+        width: 100%;
+        object-fit: contain;
+        animation: none;
+    }
+
+}
+
+
+/* ========================================
+    10. ANIMATIONS
+======================================== */
+
+@keyframes interfaceFadeOut {
+
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+
+}
+
+
+@keyframes interfaceFadeIn {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}

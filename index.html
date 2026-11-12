@@ -60,8 +60,20 @@
                     l'intégration de solutions intelligentes.
                 </p>
 
+                <button type="button" data-open="apropos">
+                    Me Découvrir
+                </button>
+
+                <button type="button" data-open="competences">
+                    Découvrir mes compétences
+                </button>
+
                 <button type="button" data-open="projets">
                     Découvrir mes projets
+                </button>
+
+                <button type="button" data-open="parcours">
+                    Découvrir mon parcours
                 </button>
 
                 <button type="button" data-open="contact">
@@ -74,6 +86,10 @@
             <!-- SECTION À PROPOS -->
             <section id="apropos" class="window" hidden>
 
+                <button type="button" data-back="accueil">
+                    Retour à la page d'accueil
+                </button>
+ 
                 <h2>À propos de moi</h2>
 
                 <h3>Un parcours orienté développement et intelligence artificielle</h3>
@@ -110,6 +126,10 @@
 
             <!-- SECTION COMPÉTENCES -->
             <section id="competences" class="window" hidden>
+
+                <button type="button" data-back="accueil">
+                    Retour à la page d'accueil
+                </button>
 
                 <h2>Mes compétences</h2>
 
@@ -168,6 +188,10 @@
             <!-- SECTION PROJETS -->
             <section id="projets" class="window" hidden>
 
+                <button type="button" data-back="accueil">
+                    Retour à la page d'accueil
+                </button>
+
                 <h2>Mes projets</h2>
 
                 <p>
@@ -177,7 +201,8 @@
                     de l'expérimentation et de la résolution de problèmes.
                 </p>
 
-                <article>
+                <article class="project-card" data-project="gamebot">
+                    
                     <h3>Chatbot de recommandation de jeux vidéo</h3>
 
                     <p>
@@ -188,21 +213,25 @@
                     </p>
 
                     <p>
-                        Technologies : Python, FastAPI, LangChain,
+                        <strong>Technologies :</strong>
+                         Python, FastAPI, LangChain,
                         PostgreSQL, pgvector et Machine Learning.
                     </p>
 
-                    <button type="button" data-open="details-gamebot">
+                    <button type="button" 
+                        data-open="details-gamebot"
+                        aria-label="Découvrir le projet GameBot Color"
+                    >
                         Découvrir le projet
                     </button>
 
                         <!--Le futur lien vers la présentation du projet Gamebot-->
 
-                        <!--Le futur lien vers l'application Gamebot pour qu'ils puissent la tester-->
+                        <!--Le futur lien vers l'application Gamebot -->
 
                 </article>
 
-                <article>
+                <article class="project-card" data-project="wildiaprint">
                     <h3>API de classification d'images</h3>
 
                     <p>
@@ -212,7 +241,8 @@
                     </p>
 
                     <p>
-                        Technologies : Python, TensorFlow, FastAPI,
+                        <strong>Technologies :</strong> 
+                        Python, TensorFlow, FastAPI,
                         Docker et Azure.
                     </p>
 
@@ -224,7 +254,7 @@
 
                 </article>
 
-                <article>
+                <article class="project-card" data-project="machine-learning">
                     <h3>Pipeline Machine Learning</h3>
 
                     <p>
@@ -235,7 +265,8 @@
                     </p>
 
                     <p>
-                        Technologies : Python, Scikit-learn et MLflow.
+                        <strong>Technologies :</strong> 
+                        Python, Scikit-learn et MLflow.
                     </p>
 
                     <button type="button" data-open="details-pipeline">
@@ -251,6 +282,10 @@
 
             <!-- SECTION PARCOURS -->
             <section id="parcours" class="window" hidden>
+
+                <button type="button" data-back="accueil">
+                    Retour à la page d'accueil
+                </button>
 
                 <h2>Mon parcours</h2>
 
@@ -280,6 +315,10 @@
             <!-- SECTION CONTACT -->
             <section id="contact" class="window" hidden>
 
+                <button type="button" data-back="accueil">
+                    Retour à la page d'accueil
+                </button>
+
                 <h2>Entrons en contact</h2>
 
                 <h3>Vous avez un projet ou une opportunité à partager ?</h3>
@@ -300,7 +339,13 @@
             </section>
 
                 <!-- FENÊTRE DÉTAILLÉE GAMEBOT -->
-            <section id="details-gamebot" class="window" hidden>
+            <section 
+                id="details-gamebot" 
+                class="window project-detail"
+                data-project-detail="gamebot" 
+                hidden
+                tabindex="-1"
+            >
 
                 <h2>GameBot Color</h2>
 
@@ -329,7 +374,12 @@
 
 
             <!-- FENÊTRE DÉTAILLÉE CLASSIFICATION -->
-            <section id="details-classification" class="window" hidden>
+            <section 
+                id="details-classification" 
+                class="window project-detail" 
+                data-project-detail="wildiaprint"
+                hidden
+            >
 
                 <h2>Classification d'images</h2>
 
@@ -345,7 +395,11 @@
 
 
             <!-- FENÊTRE DÉTAILLÉE PIPELINE -->
-            <section id="details-pipeline" class="window" hidden>
+            <section id="details-pipeline" 
+                class="window project-detail" 
+                data-project-detail="machine-learning"
+                hidden
+            >
 
                 <h2>Pipeline Machine Learning</h2>
 
