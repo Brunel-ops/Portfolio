@@ -39,7 +39,7 @@
 
         <main>
                 <!-- SECTION ACCUEIL -->
-            <section id="accueil" content="window window-active">
+            <section id="accueil" class="window window-active">
 
                 <p>PORTFOLIO — IA & DATA</p>
 
@@ -67,7 +67,7 @@
 
 
             <!-- SECTION À PROPOS -->
-            <section id="apropos">
+            <section id="apropos" class="window" hidden>
 
                 <h2>À propos de moi</h2>
 
@@ -104,7 +104,7 @@
 
 
             <!-- SECTION COMPÉTENCES -->
-            <section id="competences">
+            <section id="competences" class="window" hidden>
 
                 <h2>Mes compétences</h2>
 
@@ -161,7 +161,7 @@
 
 
             <!-- SECTION PROJETS -->
-            <section id="projets">
+            <section id="projets" class="window" hidden>
 
                 <h2>Mes projets</h2>
 
@@ -191,6 +191,14 @@
                         Découvrir le projet
                     </button>
 
+                        <!--Le futur lien vers la présentation du projet Gamebot-->
+
+                        <!--Le futur lien vers l'application Gamebot pour qu'ils puissent la tester-->
+
+                    <button type="button" data-back="projets">
+                        Retour aux projets
+                    </button>
+
                 </article>
 
                 <article>
@@ -207,7 +215,15 @@
                         Docker et Azure.
                     </p>
 
+                    <button type="button" data-open="details-classification">
+                        Découvrir le projet
+                    </button>
+
                     <!-- Futur lien vers la présentation détaillée -->
+
+                    <button type="button" data-back="projets">
+                        Retour aux projets
+                    </button>
 
                 </article>
 
@@ -225,7 +241,15 @@
                         Technologies : Python, Scikit-learn et MLflow.
                     </p>
 
+                    <button type="button" data-open="details-pipeline">
+                        Découvrir le projet
+                    </button>
+
                     <!-- Futur lien vers la présentation détaillée -->
+
+                    <button type="button" data-back="projets">
+                        Retour aux projets
+                    </button>
 
                 </article>
 
@@ -233,7 +257,7 @@
 
 
             <!-- SECTION PARCOURS -->
-            <section id="parcours">
+            <section id="parcours" class="window" hidden>
 
                 <h2>Mon parcours</h2>
 
@@ -261,7 +285,7 @@
 
 
             <!-- SECTION CONTACT -->
-            <section id="contact">
+            <section id="contact" class="window" hidden>
 
                 <h2>Entrons en contact</h2>
 
