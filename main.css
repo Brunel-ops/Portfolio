@@ -1,0 +1,175 @@
+/* =========================================
+   1. VARIABLES GLOBALES
+========================================= */
+
+:root {
+    color-scheme: dark light;
+
+    /* Typographie */
+    --font-primary: Arial, Helvetica, sans-serif;
+
+    /* Dimensions */
+    --content-width: 1200px;
+    --header-height: 80px;
+
+    /* Espacements */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
+
+    /* Arrondis */
+    --radius-sm: 8px;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+
+    /* Transitions */
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.35s ease;
+}
+
+/* =========================================
+   2. THÈME SOMBRE (PAR DÉFAUT)
+========================================= */
+
+:root,
+[data-theme="dark"] {
+
+    color-scheme: dark;
+
+    --color-background: #08090d;
+    --color-surface: #151821;
+    --color-surface-glass: rgba(53, 59, 76, 0.75);
+
+    --color-text-primary: #f5f7ff;
+    --color-text-secondary: #a7adbd;
+
+    --color-accent: #168cff;
+    --color-accent-secondary: #ff3b42;
+
+    --color-border: rgba(255, 255, 255, 0.12);
+    --color-shadow: rgba(0, 0, 0, 0.35);
+}
+
+/* =========================================
+   3. THÈME CLAIR
+========================================= */
+
+[data-theme="light"] {
+
+    color-scheme: light;
+
+    --color-background: #f3f5f9;
+    --color-surface: #ffffff;
+    --color-surface-glass: rgba(255, 255, 255, 0.75);
+
+    --color-text-primary: #171b27;
+    --color-text-secondary: #626b7c;
+
+    --color-accent: #0878df;
+    --color-accent-secondary: #d92f3a;
+
+    --color-border: rgba(20, 30, 50, 0.12);
+    --color-shadow: rgba(30, 40, 60, 0.12);
+}
+
+/* =========================================
+   4. RÉINITIALISATION
+========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    font-family: var(--font-primary);
+    background-color: var(--color-background);
+    color: var(--color-text-primary);
+    transition:
+        background-color var(--transition-normal),
+        color var(--transition-normal);
+}
+
+
+/* =========================================
+   5. STRUCTURE GÉNÉRALE
+========================================= */
+
+header {
+    min-height: var(--header-height);
+}
+
+main {
+    width: min(100% - 2rem, var(--content-width));
+    margin-inline: auto;
+}
+
+footer {
+    width: 100%;
+}
+
+
+/* =========================================
+   6. ÉLÉMENTS COMMUNS
+========================================= */
+
+a {
+    color: var(--color-accent);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+a:hover {
+    color: var(--color-accent-secondary);
+}
+
+button {
+    font: inherit;
+    cursor: pointer;
+}
+
+
+/* =========================================
+   7. ACCESSIBILITÉ
+========================================= */
+
+:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+
+/* =========================================
+   8. RESPONSIVE
+========================================= */
+
+@media (max-width: 768px) {
+
+    :root {
+        --header-height: 65px;
+        --spacing-xl: 2rem;
+    }
+
+    main {
+        width: min(100% - 1.5rem, var(--content-width));
+    }
+}
