@@ -143,6 +143,10 @@ body {
         color var(--transition-normal);
 }
 
+[hidden] {
+    display: none !important;
+}
+
 /* =========================================
    5. DÉCOR D'ARRIÈRE-PLAN
 ========================================= */
@@ -257,7 +261,7 @@ body::after {
    5. STRUCTURE GÉNÉRALE
 ========================================= */
 
-header {
+body > header {
     min-height: var(--header-height);
 }
 
@@ -404,3 +408,910 @@ button {
     }
 
 }
+
+
+
+/* ========================================
+   11. HEADER ET NAVIGATION
+======================================== */
+
+.site-header {
+    position: sticky;
+    top: 16px;
+    z-index: 100;
+
+    width: min(
+        calc(100% - 40px),
+        var(--content-width)
+    );
+
+    min-height: 76px;
+    margin: 16px auto 40px;
+    padding: 12px 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    background: var(--color-surface-glass);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+
+    box-shadow: 0 8px 30px var(--color-shadow);
+}
+
+/* Identité et logo personnel */
+
+.site-brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: inherit;
+
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.brand-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 48px;
+    height: 40px;
+
+    color: var(--color-accent);
+    flex-shrink: 0;
+}
+
+.brand-logo svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+.brand-identity {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+}
+
+.brand-name {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--color-text-primary);
+}
+
+.brand-subtitle {
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    color: var(--color-text-secondary);
+}
+
+/* Navigation principale */
+
+.primary-navigation {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.primary-navigation button {
+    position: relative;
+
+    padding: 10px 13px;
+
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+
+    color: var(--color-text-secondary);
+    font-size: 13px;
+    font-weight: 500;
+    white-space: nowrap;
+
+    cursor: pointer;
+
+    transition:
+        background var(--transition-fast),
+        color var(--transition-fast),
+        border-color var(--transition-fast);
+}
+
+/* Survol et page active */
+
+.primary-navigation button:hover,
+.primary-navigation button[aria-current="page"] {
+    background: var(--color-surface);
+    border-color: var(--color-border);
+    color: var(--color-accent);
+}
+
+/* Indicateur discret de navigation active */
+
+.primary-navigation button[aria-current="page"]::after {
+    content: "";
+
+    position: absolute;
+    left: 50%;
+    bottom: 3px;
+
+    width: 16px;
+    height: 2px;
+
+    background: var(--color-accent);
+    border-radius: 2px;
+
+    transform: translateX(-50%);
+}
+
+/* Bouton de changement de thème */
+
+#theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 42px;
+    height: 42px;
+    padding: 9px;
+
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+
+    color: var(--color-text-primary);
+
+    cursor: pointer;
+    flex-shrink: 0;
+
+    transition:
+        background var(--transition-fast),
+        border-color var(--transition-fast),
+        color var(--transition-fast);
+}
+
+/* Pictogrammes du bouton de thème */
+
+#theme-toggle svg {
+    width: 21px;
+    height: 21px;
+
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+
+    transition: transform var(--transition-fast);
+}
+
+/* Pictogramme actif */
+
+#theme-toggle svg:not([hidden]) {
+    display: block;
+}
+
+/* Pictogrammes inactifs */
+
+#theme-toggle svg[hidden] {
+    display: none !important;
+}
+
+#theme-toggle:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+}
+
+#theme-toggle:hover svg {
+    transform: scale(1.1);
+}
+
+#theme-toggle:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+}
+
+/* Bouton du menu mobile */
+
+.mobile-menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+
+    width: 42px;
+    height: 42px;
+    padding: 9px;
+
+    background: transparent;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+}
+
+.mobile-menu-toggle span {
+    display: block;
+    width: 100%;
+    height: 2px;
+
+    background: var(--color-text-primary);
+
+    transition:
+        transform var(--transition-fast),
+        opacity var(--transition-fast);
+}
+
+/* Animation du bouton mobile */
+
+.mobile-menu-toggle[aria-expanded="true"] span:first-child {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.mobile-menu-toggle[aria-expanded="true"] span:nth-child(2) {
+    opacity: 0;
+}
+
+.mobile-menu-toggle[aria-expanded="true"] span:last-child {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Adaptation tablette et mobile */
+
+@media (max-width: 900px) {
+
+    .site-header {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .mobile-menu-toggle {
+        display: flex;
+        margin-left: auto;
+    }
+
+    .primary-navigation {
+        display: none;
+        flex-basis: 100%;
+
+        flex-direction: column;
+        align-items: stretch;
+        gap: 4px;
+
+        padding-top: 8px;
+        border-top: 1px solid var(--color-border);
+    }
+
+    .primary-navigation.navigation-open {
+        display: flex;
+    }
+
+    .primary-navigation button {
+        width: 100%;
+        text-align: left;
+    }
+
+    #theme-toggle {
+        flex-basis: 100%;
+    }
+
+}
+
+@media (max-width: 480px) {
+
+    .site-header {
+        width: calc(100% - 24px);
+        padding: 12px;
+        margin-top: 12px;
+    }
+
+    
+   .brand-logo {
+        width: 48px;
+        height: 40px;
+        color: var(--color-accent);
+    }
+
+
+    .brand-name {
+        font-size: 12px;
+    }
+
+}
+
+/* =========================================
+   ASSISTANT IA — MODE VEILLE
+   1. Plateforme holographique
+   2. Tête du robot
+========================================= */
+
+/* Conteneur général de l'assistant */
+#ai-assistant {
+    position: fixed;
+    right: 35px;
+    bottom: 30px;
+    width: 220px;
+    height: 190px;
+    z-index: 1000;
+    pointer-events: none;
+}
+
+/* Zone contenant la plateforme et la future fenêtre */
+.assistant-panel {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 190px;
+    height: 85px;
+    pointer-events: none;
+}
+
+/* =========================================
+   PLATEFORME HOLOGRAPHIQUE
+========================================= */
+
+.assistant-platform {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 190px;
+    height: 75px;
+    pointer-events: none;
+}
+
+/* Noyau lumineux central */
+.platform-core {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 42px;
+    height: 42px;
+    border: 1px solid var(--color-accent);
+    border-radius: 50%;
+    background: radial-gradient(
+        circle,
+        rgba(22, 140, 255, 0.35) 0%,
+        rgba(22, 140, 255, 0.12) 45%,
+        transparent 72%
+    );
+    box-shadow:
+        0 0 12px rgba(22, 140, 255, 0.45),
+        0 0 30px rgba(22, 140, 255, 0.2);
+    transform: translate(-50%, -50%);
+    animation: platform-core-pulse 3s ease-in-out infinite;
+}
+
+/* Anneaux holographiques */
+.platform-ring {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    border: 1px solid rgba(22, 140, 255, 0.65);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) rotateX(65deg);
+}
+
+.platform-ring-one {
+    width: 115px;
+    height: 115px;
+    animation: platform-ring-rotate 12s linear infinite;
+}
+
+.platform-ring-two {
+    width: 165px;
+    height: 165px;
+    border-color: rgba(22, 140, 255, 0.3);
+    animation: platform-ring-rotate 18s linear infinite reverse;
+}
+
+/* =========================================
+   ROBOT — TÊTE EN MODE VEILLE
+========================================= */
+
+.assistant-robot {
+    position: absolute;
+    right: 42px;
+    bottom: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 110px;
+    height: 115px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    pointer-events: auto;
+    z-index: 2;
+}
+
+/* Support visuel de la tête */
+.assistant-robot-visual {
+    position: relative;
+    display: block;
+    width: 100px;
+    height: 105px;
+    animation: robot-head-float 3.5s ease-in-out infinite;
+    filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.25));
+}
+
+/* Coque blanche nacrée */
+.assistant-robot-visual::before {
+    content: "";
+    position: absolute;
+    top: 7px;
+    left: 50%;
+    width: 90px;
+    height: 70px;
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    border-radius: 48% 48% 42% 42% / 38% 38% 52% 52%;
+    background: linear-gradient(
+        135deg,
+        #ffffff 0%,
+        #e9f1f8 28%,
+        #b9c9d8 55%,
+        #f8fbff 78%,
+        #a9bacb 100%
+    );
+    box-shadow:
+        inset 0 3px 7px rgba(255, 255, 255, 0.95),
+        inset 5px 0 9px rgba(255, 255, 255, 0.55),
+        inset -5px 0 9px rgba(65, 91, 120, 0.18),
+        inset 0 -9px 12px rgba(65, 91, 120, 0.16),
+        0 0 18px rgba(22, 140, 255, 0.16);
+    transform: translateX(-50%);
+}
+
+/* Visière sombre et yeux cyan */
+.assistant-robot-visual::after {
+    content: "";
+    position: absolute;
+    top: 28px;
+    left: 50%;
+    width: 60px;
+    height: 32px;
+
+    z-index: 3;
+    pointer-events: none;
+
+    border: 1px solid rgba(115, 190, 255, 0.65);
+    border-radius: 45% 45% 42% 42%;
+    background: linear-gradient(
+        145deg,
+        #142b43,
+        #07111e
+    );
+    box-shadow:
+        inset 0 0 8px rgba(22, 140, 255, 0.35),
+        0 0 12px rgba(22, 140, 255, 0.3);
+    transform: translateX(-50%);
+}
+
+/* Interaction clavier */
+.assistant-robot:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 5px;
+    border-radius: 50%;
+}
+
+/* Petit renforcement lumineux au survol */
+.assistant-robot:hover .assistant-robot-visual {
+    filter:
+        drop-shadow(0 0 10px rgba(22, 140, 255, 0.35))
+        drop-shadow(0 8px 12px rgba(0, 0, 0, 0.2));
+}
+
+/* =========================================
+   ANIMATIONS DU MODE VEILLE
+========================================= */
+
+@keyframes robot-head-float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+@keyframes platform-core-pulse {
+    0%, 100% {
+        opacity: 0.65;
+        transform: translate(-50%, -50%) scale(0.92);
+    }
+
+    50% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.08);
+    }
+}
+
+@keyframes platform-ring-rotate {
+    from {
+        transform: translate(-50%, -50%) rotateX(65deg) rotateZ(0deg);
+    }
+
+    to {
+        transform: translate(-50%, -50%) rotateX(65deg) rotateZ(360deg);
+    }
+}
+
+/* Respect des préférences de réduction des animations */
+@media (prefers-reduced-motion: reduce) {
+    .assistant-robot-visual,
+    .platform-core,
+    .platform-ring {
+        animation: none;
+    }
+}
+
+/* Adaptation aux petits écrans */
+@media (max-width: 600px) {
+    #ai-assistant {
+        right: 12px;
+        bottom: 15px;
+        transform: scale(0.85);
+        transform-origin: bottom right;
+    }
+}
+
+/* =========================================
+   ROBOT — MODULES MÉCANIQUES LATÉRAUX
+========================================= */
+
+.robot-side-module {
+    position: absolute;
+    top: 34px;
+    width: 15px;
+    height: 29px;
+    z-index: 1;
+
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    border-radius: 45%;
+
+    background: linear-gradient(
+        135deg,
+        #ffffff 0%,
+        #dce5ee 30%,
+        #899eaf 65%,
+        #f4f8fc 100%
+    );
+
+    box-shadow:
+        inset 1px 1px 3px rgba(255, 255, 255, 0.9),
+        inset -2px -2px 4px rgba(45, 65, 85, 0.3),
+        0 0 5px rgba(22, 140, 255, 0.2);
+}
+
+/* Module gauche */
+.robot-side-module-left {
+    left: 1px;
+}
+
+/* Module droit */
+.robot-side-module-right {
+    right: 1px;
+}
+
+/* Détail lumineux des modules */
+.robot-side-module::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    width: 4px;
+    height: 12px;
+
+    border-radius: 50%;
+    background: #36d9ff;
+
+    box-shadow:
+        0 0 4px rgba(54, 217, 255, 0.8),
+        0 0 8px rgba(22, 140, 255, 0.5);
+
+    transform: translate(-50%, -50%);
+}
+
+/* =========================================
+   ROBOT — ANTENNES RÉTRACTABLES
+========================================= */
+
+    .robot-antenna {
+        position: absolute;
+        top: 36px;
+        width: 4px;
+        height: 24px;
+
+        z-index: 0;
+        border-radius: 5px;
+
+        background: linear-gradient(
+            90deg,
+            #8497a9,
+            #ffffff 45%,
+            #9eafbf
+        );
+
+        box-shadow:
+            0 0 4px rgba(255, 255, 255, 0.4),
+            0 0 7px rgba(22, 140, 255, 0.2);
+
+        transform-origin: bottom center;
+    }
+
+    /* Antenne gauche */
+    .robot-antenna-left {
+        left: 8px;
+        transform: rotate(-25deg);
+    }
+
+    /* Antenne droite */
+    .robot-antenna-right {
+        right: 8px;
+        transform: rotate(25deg);
+    }
+
+    /* Extrémités lumineuses */
+    .robot-antenna-tip {
+        position: absolute;
+        top: -4px;
+        left: 50%;
+
+        width: 7px;
+        height: 7px;
+
+        border-radius: 50%;
+        background: #c8f8ff;
+
+        box-shadow:
+            0 0 4px #36d9ff,
+            0 0 9px rgba(54, 217, 255, 0.8),
+            0 0 15px rgba(22, 140, 255, 0.5);
+
+        transform: translateX(-50%);
+    }
+
+    /* =========================================
+   ROBOT — YEUX EXPRESSIFS
+========================================= */
+
+.robot-eye {
+    position: absolute;
+    top: 44px;
+    width: 8px;
+    height: 13px;
+    z-index: 4;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    background: #36d9ff;
+
+    box-shadow:
+        0 0 4px #c8f8ff,
+        0 0 9px rgba(54, 217, 255, 0.9),
+        0 0 15px rgba(22, 140, 255, 0.6);
+
+    transform: translate(
+        calc(-50% + var(--eye-x, 0px)),
+        calc(-50% + var(--eye-y, 0px))
+    );
+}
+
+.robot-eye-left {
+    left: 38%;
+}
+
+.robot-eye-right {
+    left: 62%;
+}
+
+/* Reflet lumineux dans les yeux */
+.robot-eye span {
+    width: 3px;
+    height: 5px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 4px #ffffff;
+}
+
+/* Clignement naturel */
+.robot-eye.blink {
+    animation: robot-eye-blink 180ms ease-in-out;
+}
+
+@keyframes robot-eye-blink {
+    0%, 100% {
+        transform: translate(
+            calc(-50% + var(--eye-x, 0px)),
+            calc(-50% + var(--eye-y, 0px))
+        ) scaleY(1);
+    }
+
+    45%, 65% {
+        transform: translate(
+            calc(-50% + var(--eye-x, 0px)),
+            calc(-50% + var(--eye-y, 0px))
+        ) scaleY(0.1);
+    }
+}
+
+/* =========================================
+   ROBOT — SCULPTURE DE LA COQUE
+========================================= */
+
+/* Courbes latérales intégrées */
+.assistant-robot-visual {
+    --shell-highlight: rgba(255, 255, 255, 0.7);
+}
+
+.assistant-robot-visual::before {
+    background:
+        radial-gradient(
+            ellipse at 50% 8%,
+            rgba(255, 255, 255, 0.95),
+            transparent 48%
+        ),
+        linear-gradient(
+            135deg,
+            #ffffff 0%,
+            #e9f1f8 28%,
+            #b9c9d8 55%,
+            #f8fbff 78%,
+            #a9bacb 100%
+        );
+}
+
+/* Ombre douce sous la visière */
+.assistant-robot-visual::after {
+    box-shadow:
+        inset 0 0 8px rgba(22, 140, 255, 0.35),
+        0 0 12px rgba(22, 140, 255, 0.3),
+        0 4px 5px rgba(0, 0, 0, 0.18);
+}
+
+/* =========================================
+   ROBOT — JONCTIONS DE LA COQUE
+========================================= */
+
+.robot-shell-seam {
+    position: absolute;
+    top: 25px;
+    width: 13px;
+    height: 25px;
+    z-index: 2;
+
+    border: 0;
+    border-left: 1px solid rgba(92, 119, 145, 0.38);
+    border-radius: 50% 0 0 50%;
+
+    box-shadow:
+        -1px 0 1px rgba(255, 255, 255, 0.8);
+
+    opacity: 0.9;
+    pointer-events: none;
+}
+
+/* Jonction gauche */
+.robot-shell-seam-left {
+    left: 18px;
+    transform: rotate(12deg);
+}
+
+/* Jonction droite */
+.robot-shell-seam-right {
+    right: 18px;
+    transform: scaleX(-1) rotate(12deg);
+}
+
+/* =========================================
+   ROBOT — PANNEAUX DE LA COQUE
+========================================= */
+
+.robot-panel {
+    position: absolute;
+    z-index: 2;
+    pointer-events: none;
+
+    border: 1px solid rgba(255, 255, 255, 0.9);
+
+    background: linear-gradient(
+        135deg,
+        #ffffff 0%,
+        #e9f1f8 30%,
+        #b9c9d8 65%,
+        #f8fbff 100%
+    );
+
+    box-shadow:
+        inset 2px 2px 4px rgba(255, 255, 255, 0.95),
+        inset -2px -2px 5px rgba(65, 91, 120, 0.3),
+        0 2px 2px rgba(35, 53, 72, 0.35),
+        0 0 2px rgba(255, 255, 255, 0.9);
+
+    overflow: hidden;
+}
+
+
+/* =========================================
+   ROBOT — CHÂSSIS MÉTALLIQUE
+========================================= */
+
+.robot-metal-frame {
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    width: 88px;
+    height: 68px;
+    z-index: 1;
+
+    border: 1px solid rgba(91, 117, 140, 0.8);
+    border-radius: 48% 48% 42% 42% / 38% 38% 52% 52%;
+
+    background: linear-gradient(
+        135deg,
+        #71869a 0%,
+        #d6e1eb 25%,
+        #758da2 50%,
+        #e5edf4 75%,
+        #71869a 100%
+    );
+    box-shadow:
+        inset 0 0 5px rgba(255, 255, 255, 0.65),
+        inset 0 -5px 8px rgba(20, 35, 50, 0.35);
+
+    transform: translateX(-50%);
+}
+
+/* Panneau frontal gauche */
+.robot-panel-forehead-left {
+    top: 9px;
+    left: 6px;
+    width: 42px;
+    height: 24px;
+
+    border-radius: 85% 10% 12% 25% / 35% 15% 20% 35%;
+
+    transform: rotate(-5deg);
+}
+
+/* Panneau frontal droit */
+.robot-panel-forehead-right {
+    top: 9px;
+    right: 6px;
+    width: 42px;
+    height: 24px;
+
+    border-radius: 10% 85% 25% 12% / 15% 35% 35% 20%;
+
+    transform: rotate(5deg);
+}
+
+/* Panneau inférieur : menton */
+.robot-panel-chin {
+    top: 62px;
+    left: 50%;
+    width: 48px;
+    height: 13px;
+
+    border-radius: 15% 15% 48% 48% / 20% 20% 75% 75%;
+
+    transform: translateX(-50%);
+}
+
+
