@@ -34,6 +34,13 @@
    
     <body>
         <header>
+            <button
+                type="button"
+                id="theme-toggle"
+                aria-label="Changer le thème"
+            >
+                Thème : Automatique
+            </button>
             <!-- Navigation principale -->
         </header>
 
@@ -414,6 +421,166 @@
             </section>
 
         </main>
+
+
+        <!-- ========================================
+            ASSISTANT IA
+        ======================================== -->
+
+        <aside
+            id="ai-assistant"
+            class="ai-assistant"
+            data-state="closed"
+            aria-label="Assistant IA du portfolio"
+        >
+
+            <!-- ROBOT INTERACTIF -->
+
+            <button
+                type="button"
+                class="assistant-robot"
+                aria-label="Ouvrir l'assistant IA"
+                aria-expanded="false"
+                aria-controls="assistant-panel"
+            >
+
+                <!-- Future illustration du robot -->
+
+                <div 
+                    class="assistant-robot-visual" 
+                    id="assistant-3D"
+                    aria-hidden="true"
+                ></div>
+
+            </button>
+
+
+            <!-- PLATEFORME HOLOGRAPHIQUE / FENÊTRE DE DISCUSSION -->
+
+            <div
+                id="assistant-panel"
+                class="assistant-panel"
+                aria-label="Discussion avec l'assistant IA"
+            >
+
+                <!-- APPARENCE DE LA PLATEFORME AU REPOS -->
+
+                <div class="assistant-platform" aria-hidden="true">
+
+                    <div class="platform-core"></div>
+
+                    <div class="platform-ring platform-ring-one"></div>
+
+                    <div class="platform-ring platform-ring-two"></div>
+
+                </div>
+
+
+                <!-- CONTENU DU CHATBOT -->
+
+                <div class="assistant-chat" hidden>
+
+                    <!-- EN-TÊTE -->
+
+                    <header class="assistant-chat-header">
+
+                        <div class="assistant-chat-identity">
+
+                            <span class="assistant-status-indicator"></span>
+
+                            <h2>Assistant IA</h2>
+
+                        </div>
+
+                        <button
+                            type="button"
+                            class="assistant-close"
+                            aria-label="Fermer l'assistant IA"
+                        >
+                            &times;
+                        </button>
+
+                    </header>
+
+
+                    <!-- HISTORIQUE DE DISCUSSION -->
+
+                    <div
+                        class="assistant-chat-messages"
+                        aria-live="polite"
+                        aria-relevant="additions"
+                    >
+
+                        <div class="assistant-message assistant-message-bot">
+
+                            <p>
+                                Bonjour ! 👋
+                            </p>
+
+                            <p>
+                                Je suis votre assistant IA.
+                                Comment puis-je vous aider aujourd'hui ?
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- SUGGESTIONS DE NAVIGATION -->
+
+                    <div class="assistant-suggestions">
+
+                        <button type="button" data-assistant-action="projects">
+                            Mes projets IA
+                        </button>
+
+                        <button type="button" data-assistant-action="skills">
+                            Mes compétences
+                        </button>
+
+                        <button type="button" data-assistant-action="career">
+                            Mon parcours
+                        </button>
+
+                        <button type="button" data-assistant-action="contact">
+                            Me contacter
+                        </button>
+
+                    </div>
+
+
+                    <!-- ZONE DE SAISIE -->
+
+                    <form class="assistant-chat-form">
+
+                        <label
+                            class="visually-hidden"
+                            for="assistant-message-input"
+                        >
+                            Écrire un message à l'assistant
+                        </label>
+
+                        <input
+                            type="text"
+                            id="assistant-message-input"
+                            name="message"
+                            placeholder="Écrire un message..."
+                            autocomplete="off"
+                        >
+
+                        <button type="submit" aria-label="Envoyer le message">
+                            Envoyer
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </aside>
+
 
         <footer>
             <!-- Pied de page -->

@@ -191,3 +191,90 @@ document.addEventListener("click", (event) => {
     }
 
 });
+
+/* =========================================
+   GESTION DU THÈME
+========================================= */
+
+const themeToggle = document.querySelector("#theme-toggle");
+const rootElement = document.documentElement;
+
+const themeOptions = ["auto", "light", "dark"];
+
+const themeLabels = {
+    auto: "Automatique",
+    light: "Clair",
+    dark: "Sombre"
+};
+
+const storageKey = "portfolio-theme";
+
+/* Récupération de la préférence enregistrée */
+
+function getSavedTheme() {
+    try {
+        return localStorage.getItem(storageKey) || "auto";
+    } catch {
+        return "auto";
+    }
+}
+
+/* Application du thème */
+
+function applyTheme(theme) {
+
+    if (theme === "auto") {
+        rootElement.removeAttribute("data-theme");
+    } else {
+        rootElement.setAttribute("data-theme", theme);
+    }
+
+    if (themeToggle) {
+        themeToggle.textContent =
+            `Thème : ${themeLabels[theme]}`;
+
+        themeToggle.setAttribute(
+            "aria-label",
+            `Thème actuel : ${themeLabels[theme]}. Cliquer pour changer.`
+        );
+    }
+}
+
+/* Enregistrement de la préférence */
+
+function saveTheme(theme) {
+    try {
+        localStorage.setItem(storageKey, theme);
+    } catch {
+        // Le thème reste utilisable même si le stockage est indisponible.
+    }
+}
+
+/* Initialisation */
+
+let currentTheme = getSavedTheme();
+
+if (!themeOptions.includes(currentTheme)) {
+    currentTheme = "auto";
+}
+
+applyTheme(currentTheme);
+
+/* Changement au clic */
+
+if (themeToggle) {
+
+    themeToggle.addEventListener("click", () => {
+
+        const currentIndex = themeOptions.indexOf(currentTheme);
+
+        const nextIndex =
+            (currentIndex + 1) % themeOptions.length;
+
+        currentTheme = themeOptions[nextIndex];
+
+        saveTheme(currentTheme);
+        applyTheme(currentTheme);
+    });
+
+}

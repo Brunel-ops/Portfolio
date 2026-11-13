@@ -38,6 +38,12 @@
 
     color-scheme: dark;
 
+    /* Décor d'arrière-plan */
+    --background-glow-primary: rgba(22, 140, 255, 0.13);
+    --background-glow-secondary: rgba(0, 220, 255, 0.07);
+    --circuit-color: rgba(70, 160, 255, 0.055);
+    --particle-color: rgba(100, 210, 255, 0.45);
+
     --color-background: #08090d;
     --color-surface: #151821;
     --color-surface-glass: rgba(53, 59, 76, 0.75);
@@ -60,6 +66,12 @@
 
     color-scheme: light;
 
+     /* Décor d'arrière-plan */
+    --background-glow-primary: rgba(40, 160, 255, 0.13);
+    --background-glow-secondary: rgba(0, 210, 230, 0.10);
+    --circuit-color: rgba(30, 130, 210, 0.075);
+    --particle-color: rgba(0, 145, 220, 0.45);
+
     --color-background: #f3f5f9;
     --color-surface: #ffffff;
     --color-surface-glass: rgba(255, 255, 255, 0.75);
@@ -72,6 +84,35 @@
 
     --color-border: rgba(20, 30, 50, 0.12);
     --color-shadow: rgba(30, 40, 60, 0.12);
+}
+
+/* =========================================
+   THÈME AUTOMATIQUE DU SYSTÈME
+========================================= */
+
+@media (prefers-color-scheme: light) {
+
+    :root:not([data-theme]) {
+        color-scheme: light;
+
+        --color-background: #f3f5f9;
+        --color-surface: #ffffff;
+        --color-surface-glass: rgba(255, 255, 255, 0.75);
+
+        --color-text-primary: #171b27;
+        --color-text-secondary: #626b7c;
+
+        --color-accent: #0878df;
+        --color-accent-secondary: #d92f3a;
+
+        --color-border: rgba(20, 30, 50, 0.12);
+        --color-shadow: rgba(30, 40, 60, 0.12);
+
+        --background-glow-primary: rgba(40, 160, 255, 0.13);
+        --background-glow-secondary: rgba(0, 210, 230, 0.10);
+        --circuit-color: rgba(30, 130, 210, 0.075);
+        --particle-color: rgba(0, 145, 220, 0.45);
+    }
 }
 
 /* =========================================
@@ -90,12 +131,125 @@ html {
 
 body {
     min-height: 100vh;
+    position: relative;
+    isolation: isolate;
+
     font-family: var(--font-primary);
     background-color: var(--color-background);
     color: var(--color-text-primary);
+
     transition:
         background-color var(--transition-normal),
         color var(--transition-normal);
+}
+
+/* =========================================
+   5. DÉCOR D'ARRIÈRE-PLAN
+========================================= */
+
+/* Halos lumineux diffus */
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+
+    background:
+        radial-gradient(
+            ellipse at 20% 20%,
+            var(--background-glow-primary),
+            transparent 45%
+        ),
+        radial-gradient(
+            ellipse at 80% 70%,
+            var(--background-glow-secondary),
+            transparent 40%
+        );
+
+    animation: backgroundGlow 18s ease-in-out infinite alternate;
+}
+
+/* Tracés technologiques subtils */
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+
+    background-image:
+        linear-gradient(
+            90deg,
+            transparent 49.8%,
+            var(--circuit-color) 50%,
+            transparent 50.2%
+        ),
+        linear-gradient(
+            0deg,
+            transparent 49.8%,
+            var(--circuit-color) 50%,
+            transparent 50.2%
+        ),
+        radial-gradient(
+            circle,
+            var(--particle-color) 1px,
+            transparent 2px
+        );
+
+    background-size:
+        180px 180px,
+        180px 180px,
+        180px 180px;
+
+    background-position:
+        0 0,
+        0 0,
+        90px 90px;
+
+    opacity: 0.55;
+
+    mask-image: radial-gradient(
+        ellipse at center,
+        black 20%,
+        transparent 85%
+    );
+
+    animation: circuitFlow 35s linear infinite;
+}
+
+/* Animation des halos */
+
+@keyframes backgroundGlow {
+    from {
+        transform: scale(1);
+        opacity: 0.75;
+    }
+
+    to {
+        transform: scale(1.08);
+        opacity: 1;
+    }
+}
+
+/* Déplacement discret du décor */
+
+@keyframes circuitFlow {
+    from {
+        background-position:
+            0 0,
+            0 0,
+            90px 90px;
+    }
+
+    to {
+        background-position:
+            180px 180px,
+            -180px -180px,
+            270px 270px;
+    }
 }
 
 
