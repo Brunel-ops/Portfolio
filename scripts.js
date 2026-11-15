@@ -115,6 +115,7 @@ function getProjectElements(currentWindow, targetWindow) {
 }
 
 
+
 // Gère la transition entre deux fenêtres
 async function navigateToWindow(targetWindow) {
 
@@ -132,81 +133,89 @@ async function navigateToWindow(targetWindow) {
 
     isTransitioning = true;
 
-    const projectElements = getProjectElements(
-        currentWindow,
-        targetWindow
-    );
+    try {
 
-    // Prépare la transition commune entre la carte et sa fenêtre
-    if (projectElements) {
-
-        const transitionName = "project-transition";
-
-        projectElements.projectCard.style.viewTransitionName =
-            transitionName;
-
-        projectElements.projectDetail.style.viewTransitionName =
-            transitionName;
-
-    }
-
-
-    // Modifie l'interface
-    const updateInterface = () => {
-
-        setActiveWindow(targetWindow);
-
-    };
-
-
-    // Utilise View Transitions si le navigateur le permet
-    if (document.startViewTransition) {
-
-        const transition = document.startViewTransition(
-            updateInterface
+        const projectElements = getProjectElements(
+            currentWindow,
+            targetWindow
         );
 
-        try {
+        // Prépare la transition commune entre la carte et sa fenêtre
+        if (projectElements) {
 
-            await transition.finished;
+            const transitionName = "project-transition";
 
-        } catch (error) {
+            projectElements.projectCard.style.viewTransitionName =
+                transitionName;
 
-            console.warn(
-                "La transition visuelle n'a pas pu se terminer.",
-                error
-            );
+            projectElements.projectDetail.style.viewTransitionName =
+                transitionName;
 
         }
 
-    } else {
+        // Modifie l'interface
+        const updateInterface = () => {
 
-        // Solution de secours sans animation View Transitions
-        updateInterface();
+            setActiveWindow(targetWindow);
+
+        };
+
+        // Utilise View Transitions si le navigateur le permet
+        if (document.startViewTransition) {
+
+            const transition = document.startViewTransition(
+                updateInterface
+            );
+
+            try {
+
+                await transition.finished;
+
+            } catch (error) {
+
+                console.warn(
+                    "La transition visuelle n'a pas pu se terminer.",
+                    error
+                );
+
+            }
+
+        } else {
+
+            // Solution de secours sans animation View Transitions
+            updateInterface();
+
+        }
+
+        // Nettoie les noms de transition
+        if (projectElements) {
+
+            projectElements.projectCard.style.viewTransitionName = "";
+
+            projectElements.projectDetail.style.viewTransitionName = "";
+
+        }
+
+        // Prépare la fenêtre pour recevoir le focus
+        targetWindow.setAttribute("tabindex", "-1");
+
+        // Place le focus sur la nouvelle fenêtre
+        targetWindow.focus({
+            preventScroll: true
+        });
+
+        // Ferme le menu mobile après une navigation
+        closeMobileMenu();
+
+    } finally {
+
+        // Garantit la réinitialisation de l'état de navigation
+        isTransitioning = false;
 
     }
-
-
-    // Nettoie les noms de transition
-    if (projectElements) {
-
-        projectElements.projectCard.style.viewTransitionName = "";
-
-        projectElements.projectDetail.style.viewTransitionName = "";
-
-    }
-
-    // Prépare la fenêtre pour recevoir le focus
-    targetWindow.setAttribute("tabindex", "-1");
-
-    // Place le focus sur la nouvelle fenêtre
-    targetWindow.focus({
-        preventScroll: true
-    });
-
-    isTransitioning = false;
 
 }
+
 
 
 // ========================================
@@ -368,15 +377,6 @@ if (mobileMenuToggle && primaryNavigation) {
             "navigation-open",
             !isExpanded
         );
-
-    });
-
-    // Fermeture du menu après sélection d'une rubrique
-    primaryNavigation.addEventListener("click", (event) => {
-
-        if (event.target.closest("[data-open]")) {
-            closeMobileMenu();
-        }
 
     });
 
