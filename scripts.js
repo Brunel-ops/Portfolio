@@ -537,4 +537,85 @@ if (assistant) {
 }
 
 
+/* =========================================
+   VISIONNEUSE DES CAPTURES GAMEBOT
+========================================= */
+
+const imageLightbox = document.getElementById("image-lightbox");
+const lightboxImage = imageLightbox.querySelector(".lightbox-image");
+const lightboxClose = imageLightbox.querySelector(".lightbox-close");
+
+let previousFocusedElement = null;
+
+function openImageLightbox(image) {
+
+    previousFocusedElement = image;
+
+    lightboxImage.src = image.src;
+    lightboxImage.alt = image.alt;
+
+    imageLightbox.hidden = false;
+
+    requestAnimationFrame(() => {
+        imageLightbox.classList.add("active");
+        lightboxClose.focus();
+    });
+
+    document.body.style.overflow = "hidden";
+}
+
+function closeImageLightbox() {
+
+    imageLightbox.classList.remove("active");
+
+    document.body.style.overflow = "";
+
+    setTimeout(() => {
+        imageLightbox.hidden = true;
+        lightboxImage.src = "";
+        lightboxImage.alt = "";
+
+        if (previousFocusedElement) {
+            previousFocusedElement.focus();
+        }
+    }, 200);
+}
+
+// Ouverture au clic sur une capture
+document.querySelectorAll("[data-image-zoom]").forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        const image = button.querySelector("img");
+
+        if (image) {
+            openImageLightbox(image);
+        }
+
+    });
+
+});
+
+// Fermeture avec le bouton
+lightboxClose.addEventListener("click", closeImageLightbox);
+
+// Fermeture en cliquant sur le fond
+imageLightbox.addEventListener("click", event => {
+
+    if (event.target === imageLightbox) {
+        closeImageLightbox();
+    }
+
+});
+
+// Fermeture avec la touche Échap
+document.addEventListener("keydown", event => {
+
+    if (event.key === "Escape" && !imageLightbox.hidden) {
+        closeImageLightbox();
+    }
+
+});
+
+
 
