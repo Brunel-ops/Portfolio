@@ -1,0 +1,244 @@
+
+/* =========================================
+   EASTER EGG — ANIMATIONS
+========================================= */
+
+/* -----------------------------------------
+   1. ALERTE DU ROBOT
+----------------------------------------- */
+
+#ai-assistant.robot-alert .robot-eye-left,
+#ai-assistant.robot-alert .robot-eye-right {
+
+    background: #ff2525;
+
+    box-shadow:
+        0 0 10px #ff2525,
+        0 0 25px #ff2525,
+        0 0 45px rgba(255, 0, 0, 0.8);
+
+    transition:
+        background 0.5s ease,
+        box-shadow 0.5s ease;
+
+}
+
+/* -----------------------------------------
+   2. MESSAGE HOLOGRAPHIQUE
+----------------------------------------- */
+
+.easter-egg-hologram {
+
+    position: fixed;
+
+    top: 50%;
+    left: 50%;
+
+    z-index: 10000;
+
+    width: min(90vw, 900px);
+
+    transform: translate(-50%, -50%) scale(0.8);
+
+    opacity: 0;
+
+    color: #ff3535;
+
+    font-size: clamp(1rem, 3vw, 2rem);
+
+    font-weight: bold;
+
+    letter-spacing: 0.15em;
+
+    text-align: center;
+
+    text-shadow:
+        0 0 8px #ff2525,
+        0 0 20px #ff2525,
+        0 0 40px rgba(255, 0, 0, 0.8);
+
+    pointer-events: none;
+
+    transition:
+        opacity 0.5s ease,
+        transform 0.5s ease;
+
+}
+
+.easter-egg-hologram.hologram-visible {
+
+    opacity: 1;
+
+    transform: translate(-50%, -50%) scale(1);
+
+}
+
+/* -----------------------------------------
+   3. TROU DE VER
+----------------------------------------- */
+
+.easter-egg-wormhole {
+
+    position: fixed;
+
+    top: 50%;
+    left: 50%;
+
+    z-index: 9998;
+
+    width: 0;
+    height: 0;
+
+    transform: translate(-50%, -50%);
+
+    pointer-events: none;
+
+}
+
+.wormhole-core {
+
+    position: absolute;
+
+    inset: 0;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            #02030a 0%,
+            #07152c 35%,
+            #087bff 65%,
+            transparent 75%
+        );
+
+    box-shadow:
+        0 0 40px #087bff,
+        0 0 100px rgba(0, 120, 255, 0.8);
+
+}
+
+.wormhole-ring {
+
+    position: absolute;
+
+    inset: -15%;
+
+    border: 3px solid #24aaff;
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 15px #168dff,
+        0 0 35px #168dff;
+
+}
+
+.wormhole-ring-1 {
+    transform: rotateX(65deg);
+}
+
+.wormhole-ring-2 {
+    transform: rotateX(65deg) rotate(60deg);
+}
+
+.wormhole-ring-3 {
+    transform: rotateX(65deg) rotate(120deg);
+}
+
+.wormhole-opening {
+
+    animation: wormhole-open 3s ease-out forwards;
+
+}
+
+@keyframes wormhole-open {
+
+    from {
+        width: 0;
+        height: 0;
+        opacity: 0;
+    }
+
+    to {
+        width: min(80vw, 900px);
+        height: min(80vw, 900px);
+        opacity: 1;
+    }
+
+}
+
+/* -----------------------------------------
+   4. ASPIRATION DE L'INTERFACE
+----------------------------------------- */
+
+.easter-egg-suction {
+
+    animation: interface-suction 2.5s ease-in forwards;
+
+    pointer-events: none;
+
+}
+
+@keyframes interface-suction {
+
+    to {
+
+        opacity: 0;
+
+        transform:
+            scale(0.05)
+            rotate(12deg);
+
+        filter: blur(15px);
+
+    }
+
+}
+
+/* -----------------------------------------
+   5. GLITCH FINAL
+----------------------------------------- */
+
+.easter-egg-glitch {
+
+    animation: final-glitch 1s steps(4) forwards;
+
+}
+
+@keyframes final-glitch {
+
+    0% {
+        filter: contrast(1);
+    }
+
+    25% {
+        filter: contrast(3) hue-rotate(90deg);
+    }
+
+    50% {
+        filter: invert(1);
+    }
+
+    75% {
+        filter: contrast(4) blur(5px);
+    }
+
+    100% {
+        background: #000;
+        filter: none;
+    }
+
+}
+
+/* -----------------------------------------
+   6. MODE JEU
+----------------------------------------- */
+
+body.doom-mode {
+
+    background: #000;
+
+    overflow: hidden;
+
+}
